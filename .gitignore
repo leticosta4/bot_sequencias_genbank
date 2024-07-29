@@ -1,5 +1,5 @@
 # Output files
-downloaded_sequences/
+output/
 *.xml
 
 # Byte-compiled / optimized / DLL files

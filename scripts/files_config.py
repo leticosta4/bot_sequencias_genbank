@@ -1,13 +1,15 @@
 import os
+from pathlib import Path
 from datetime import date, datetime
 
 def download_verification():
     expected_file = "sequence.gbc.xml"
     if os.path.exists(os.path.join("output/", expected_file)):
         print(f"Arquivo '{expected_file}' baixado com sucesso!")
+        return True
     else:
         print(f"Erro: Arquivo '{expected_file}' não encontrado no diretório de download.")
-
+        return False
 
 def prepare_directories():
     path = 'output/'

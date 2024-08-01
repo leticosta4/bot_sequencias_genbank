@@ -1,6 +1,7 @@
 # bot_sequencias_genBank
 Um bot em python que faz o download de sequências em XML de alguns arbovírus (dengue todos os tipos, chikungunya e zika) retiradas do banco de dados [Genbank](https://www.ncbi.nlm.nih.gov/nucleotide/), usando o Chrome como navegador padrão
 
+teste
 
 ## Sobre o navegador
 Para usuários de Linux sem o Chrome instalado, acessem [aqui](https://www.edivaldobrito.com.br/instalar-google-chrome-no-ubuntu/) um simples tutorial

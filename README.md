@@ -41,4 +41,4 @@ No caso de problemas com o diretório de destino do arquivo com as sequências v
 
 - Reinstalar o webdriver-manager:
 
-       `pip istall webdriver-manager`
+       `pip install webdriver-manager`

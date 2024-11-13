@@ -13,6 +13,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 def driver_setup(download_directory):
     options = ChromeOptions()
     #options.add_argument("--headless") 
+    #options.add_argument('--disable-popup-blocking') 
 
     #preferencias para o download 
     preferences = {

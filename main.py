@@ -19,11 +19,15 @@ while(True):
     else:
         arbovirus = lista_arbovirus[op-1].replace(' ', '+')
         sleep_time = arbov_time(op-1)
-     
+        #sleep_time = 300 #comentar a de cima e descomentar essa para testar diferentes valores
+
+
         absolute_path = prepare_directories()
 
         seq_amount = arbovirus_search(arbovirus, absolute_path, sleep_time)
         if(seq_amount != -1): gerar_txt(lista_arbovirus[op-1], seq_amount)
-        else: print("Arquivo de informações não gerado devido a problema no download da sequência")
+        else: 
+            #talvez fazer uma verificação de timeout ou colocar em um try-catch
+            print("Arquivo de informações não gerado devido a problema no download da sequência")
         break
 

@@ -24,16 +24,22 @@ Dentro da pasta do projeto, rodar no terminal:
 
      pip install -r requirements.txt
 
-## No caso de problemas com diretório
-No caso de problemas com o diretório de destino do arquivo com as sequências virais baixadas, algumas alternativas são:
+## No caso de problemas com o chromedriver
+No caso de problemas com o diretório de destino do arquivo com as sequências virais baixadas, ou com erro do driver do tipo: 
+
+`OSError: [Errno 8] Exec format error: /.../.wdm/drivers/chromedriver/.../THIRD_PARTY_NOTICES.chromedriver'`
+
+
+ algumas alternativas são:
+ ### Reinstalar o webdriver-manager
 - Desinstalar o webdriver-manager:
 
-       `pip unistall webdriver-manager`
+       pip unistall webdriver-manager
 
 - Limpar o cache criado pela biblioteca:
    - Linux:
 
-            rm -rf ~/.wdm
+              rm -rf ~/.wdm
 
    - Windows:
     
@@ -41,4 +47,46 @@ No caso de problemas com o diretório de destino do arquivo com as sequências v
 
 - Reinstalar o webdriver-manager:
 
-       `pip install webdriver-manager`
+       pip install webdriver-manager
+
+### Somente atualizar o webdriver-manager
+       pip install --upgrade webdriver_manager
+
+### Além de atualizar, editar arquivo de logs do webdriver-manager
+
+- (na root do seu sistema <b>Linux</b>) navegar até o diretório do webdriver-manager:
+
+       cd /home/seuUsuario/.wdm/
+
+- se quiser visualizar o conteúdo da pasta: `ls`
+- se quiser visualizar o arquivo antes de editar:
+
+       cat drivers.json
+
+- para editar o arquivo usando o ambiente do nano:
+
+       nano drivers.json
+
+- no ambiente do nano, apagar a entrada referente ao último uso do chromedriver, que provavelmente terá no fim do seu conteúdo algo como:
+
+    `/THIRD_PARTY_NOTICES.chromedriver`
+
+- para salvar no nano:
+   
+   `Ctrl + O`, `Enter`, `Ctrl + X`
+
+- visualize novamente o arquivo para verificar alterações feitas com o comando do `cat`
+
+## No caso de problemas com o download
+
+<b>Muito comum:</b> fatores como velocidade e estabilidade de internet - o download provavelmente vais er interrompido
+
+<b>Caso não seja a internet</b>, a possível melhor solução para esse problema é aumentar o `sleep_time`  em milissegundos. O que pode ser feito de 2 formas:
+- Na linha 22 do arquivo `main.py` => melhor para testes rápidos
+
+- Na função `arbov_time()` do arquivo `data_handling.py`, onde o `sleep_time` foi definido de acordo com os arbovírus que possuiam o maior número de sequências
+       
+  > <br>**Atenção:**<br><br>
+   Caso você identifique uma melhor lógica para a função de definição desses tempos por arbovírus, crie uma **PULL REQUEST** para que o merge com a main possa ser feito.
+
+

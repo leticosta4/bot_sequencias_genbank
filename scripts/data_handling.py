@@ -6,12 +6,13 @@ def get_num_seq(string_seq_num):
             numseq += i
     return numseq
 
+#pode mudar a lógica de divisão dos tempos se for melhor para cada arbovírus
 def arbov_time(op):
     if op == 0:
         return 500 #denv1
     elif op == 1 or op == 6:
-        return 200 #denv2 e zikv
+        return 400 #denv2 e zikv
     elif op == 3 or op == 4:
-        return 120 #denv 3 e denv4
+        return 300 #denv 3 e denv4 - esse tempo ainda tá meio grande: tentar regular entre 120 e 300
     else:
-        return 160 #chikv
+        return 200 #chikv

@@ -1,5 +1,11 @@
 # bot_sequencias_genBank
-Um bot em python que faz o download de sequências em XML de alguns arbovírus (dengue todos os tipos, chikungunya e zika) retiradas do banco de dados [Genbank](https://www.ncbi.nlm.nih.gov/nucleotide/), usando o Chrome como navegador padrão
+Um bot em python que faz o download de sequências em XML de alguns arbovírus retiradas do banco de dados [Genbank](https://www.ncbi.nlm.nih.gov/nucleotide/), usando o Chrome como navegador padrão. Uma pequena lista dos vírus disponíveis
+|      Para download       |    Para adicionar     |
+| ------------------------ | --------------------- |
+| Dengue (todos os tipos)  |       Oropuche        |    
+|       Chikungunya        |                       |
+|           Zika           |                       |
+
 
 ## Sobre o navegador
 Para usuários de Linux sem o Chrome instalado, acessem [aqui](https://www.edivaldobrito.com.br/instalar-google-chrome-no-ubuntu/) um simples tutorial
@@ -24,7 +30,7 @@ Dentro da pasta do projeto, rodar no terminal:
 
      pip install -r requirements.txt
 
-## No caso de problemas com o chromedriver
+## Problemas com o chromedriver
 No caso de problemas com o diretório de destino do arquivo com as sequências virais baixadas, ou com erro do driver do tipo: 
 
 `OSError: [Errno 8] Exec format error: /.../.wdm/drivers/chromedriver/.../THIRD_PARTY_NOTICES.chromedriver'`
@@ -58,16 +64,16 @@ No caso de problemas com o diretório de destino do arquivo com as sequências v
 
        cd /home/seuUsuario/.wdm/
 
-- se quiser visualizar o conteúdo da pasta: `ls`
-- se quiser visualizar o arquivo antes de editar:
+- se quiser visualizar:
+  - o conteúdo da pasta: `ls`
+  - o arquivo antes de editar: `cat drivers.json`
 
-       cat drivers.json
 
 - para editar o arquivo usando o ambiente do nano:
 
        nano drivers.json
 
-- no ambiente do nano, apagar a entrada referente ao último uso do chromedriver, que provavelmente terá no fim do seu conteúdo algo como:
+- no ambiente do nano, apague a entrada referente ao último uso do chromedriver, que provavelmente terá no fim do seu conteúdo algo como:
 
     `/THIRD_PARTY_NOTICES.chromedriver`
 
@@ -75,11 +81,11 @@ No caso de problemas com o diretório de destino do arquivo com as sequências v
    
    `Ctrl + O`, `Enter`, `Ctrl + X`
 
-- visualize novamente o arquivo para verificar alterações feitas com o comando do `cat`
+- visualize novamente o arquivo para verificar alterações feitas com o comando do `cat` e se preciso reinicie seu terminal
 
-## No caso de problemas com o download
+## No caso de problemas com o download ~ [wip]
 
-<b>Muito comum:</b> fatores como velocidade e estabilidade de internet - o download provavelmente vais er interrompido
+<b>Muito comum:</b> fatores como velocidade e estabilidade de internet - o download provavelmente vai ser interrompido
 
 <b>Caso não seja a internet</b>, a possível melhor solução para esse problema é aumentar o `sleep_time`  em milissegundos. O que pode ser feito de 2 formas:
 - Na linha 22 do arquivo `main.py` => melhor para testes rápidos
@@ -87,6 +93,6 @@ No caso de problemas com o diretório de destino do arquivo com as sequências v
 - Na função `arbov_time()` do arquivo `data_handling.py`, onde o `sleep_time` foi definido de acordo com os arbovírus que possuiam o maior número de sequências
        
   > <br>**Atenção:**<br><br>
-   Caso você identifique uma melhor lógica para a função de definição desses tempos por arbovírus, crie uma **PULL REQUEST** para que o merge com a main possa ser feito.
+   Caso você identifique uma melhor lógica para a função de definição desses tempos por vírus, crie uma **PULL REQUEST** para que o merge com a main possa ser feito.
 
 

@@ -1,10 +1,10 @@
 # bot_sequencias_genBank
 Um bot em python que faz o download de sequências em XML de alguns arbovírus retiradas do banco de dados [Genbank](https://www.ncbi.nlm.nih.gov/nucleotide/), usando o Chrome como navegador padrão. Uma pequena lista dos vírus disponíveis
-|      Para download       |    Para adicionar     |
-| ------------------------ | --------------------- |
-| Dengue (todos os tipos)  |       Oropuche        |    
-|       Chikungunya        |                       |
-|           Zika           |                       |
+|      Para download       |     Para adicionar     |
+| ------------------------ | ---------------------- |
+| Dengue (todos os tipos)  |       Oropouche        |    
+|       Chikungunya        |                        |
+|           Zika           |                        |
 
 
 ## Sobre o navegador
@@ -24,6 +24,9 @@ Para usuários de Linux sem o Chrome instalado, acessem [aqui](https://www.ediva
     
             "nome do ambiente virtual"\Scripts\activate.bat
 
+ - Para desativar o ambiente virtual:
+
+       deactivate
 
 ## Instalando as bibliotecas
 Dentro da pasta do projeto, rodar no terminal:

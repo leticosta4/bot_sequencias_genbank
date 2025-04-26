@@ -15,4 +15,4 @@ def arbov_time(op):
     elif op == 3 or op == 4:
         return 300 #denv 3 e denv4 - esse tempo ainda tá meio grande: tentar regular entre 120 e 300
     else:
-        return 200 #chikv
+        return 200 #chikv #oropouche

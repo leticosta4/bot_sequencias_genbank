@@ -7,9 +7,6 @@ def download_verification():
     if os.path.exists(os.path.join("output/", expected_file)):
         print(f"Arquivo '{expected_file}' baixado com sucesso!")
         return True
-    else:
-        print(f"Erro: Arquivo '{expected_file}' não encontrado no diretório de download.")
-        return False
 
 def prepare_directories():
     path = 'output/'

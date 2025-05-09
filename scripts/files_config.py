@@ -22,14 +22,15 @@ def prepare_directories():
 
     return os.path.abspath(path)
 
-def gerar_txt(arbovirus, seq_amount):
+def gerar_txt(arbovirus, seq_amount, duration):
     with open("output/output_info.txt", "w") as file_to_download: 
         header = "Informações gerais do download\n"
         today = date.today().strftime('%d/%m/%Y')
         day_time = f"Dia de download das sequências: {today}\n"
         moment = f"Horário: {datetime.now().strftime('%H:%M:%S')}\n"
+        duration_downloads = f"Duração dos downloads: {duration:.0f} segundos\n"
         query = f"Arbovírus selecionado pelo usuário para download das sequências: {arbovirus}\n"
         num = f"Número de sequências encontradas para {arbovirus}: {seq_amount}\n"
         source = f"Fonte: Genbank, Nucleotide database"
-        file_to_download.write(header + day_time + moment + query + num + source)
+        file_to_download.write(header + day_time + moment + duration_downloads + query + num + source)
         file_to_download.close()

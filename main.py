@@ -1,9 +1,8 @@
 from scripts.setup import arbovirus_search
 from scripts.files_config import prepare_directories, gerar_txt
-from scripts.data_handling import arbov_time
 
 seq_amount = 0
-lista_arbovirus = ['dengue virus type 1', 'dengue virus type 2', 'dengue virus type 3', 'dengue virus type 4', 'chikungunya virus', 'zika virus', "oropouche AND isolate"]
+lista_arbovirus = ['dengue virus type 1', 'dengue virus type 2', 'dengue virus type 3', 'dengue virus type 4', 'chikungunya virus', 'zika virus', "oropouche virus"]
 
 for i in range(len(lista_arbovirus)): 
     print(f"{i+1} - {lista_arbovirus[i]} ")
@@ -18,13 +17,10 @@ while(True):
         break 
     else:
         arbovirus = lista_arbovirus[op-1].replace(' ', '+')
-        sleep_time = arbov_time(op-1)
-        #sleep_time = 300 #comentar a de cima e descomentar essa para testar diferentes valores
-
 
         absolute_path = prepare_directories()
 
-        seq_amount = arbovirus_search(arbovirus, absolute_path, sleep_time)
+        seq_amount = arbovirus_search(arbovirus, absolute_path)
         if(seq_amount != -1): gerar_txt(lista_arbovirus[op-1], seq_amount)
         else: 
             #talvez fazer uma verificação de timeout ou colocar em um try-catch

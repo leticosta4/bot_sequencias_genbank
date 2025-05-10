@@ -1,11 +1,11 @@
 # bot_sequencias_genBank
-Um bot em python que faz o download de sequências em XML de alguns arbovírus retiradas do banco de dados [Genbank](https://www.ncbi.nlm.nih.gov/nucleotide/), usando o Chrome como navegador padrão. Uma pequena lista dos vírus disponíveis
-|      Para download       |     Para adicionar     |
-| ------------------------ | ---------------------- |
-| Dengue (todos os tipos)  |       Oropouche        |    
-|       Chikungunya        |                        |
-|           Zika           |                        |
+Um bot em python que faz o download de sequências em XML de alguns arbovírus retiradas do banco de dados [Genbank](https://www.ncbi.nlm.nih.gov/nucleotide/), usando o Chrome como navegador padrão. Uma pequena lista dos vírus disponíveis para download:
 
+ * Dengue (todos os tipos)    
+ * Chikungunya       
+ * Zika
+ * Oropouche      
+               
 
 ## Sobre o navegador
 Para usuários de Linux sem o Chrome instalado, acessem [aqui](https://www.edivaldobrito.com.br/instalar-google-chrome-no-ubuntu/) um simples tutorial
@@ -85,17 +85,3 @@ No caso de problemas com o diretório de destino do arquivo com as sequências v
    `Ctrl + O`, `Enter`, `Ctrl + X`
 
 - visualize novamente o arquivo para verificar alterações feitas com o comando do `cat` e se preciso reinicie seu terminal
-
-## No caso de problemas com o download ~ [wip]
-
-<b>Muito comum:</b> fatores como velocidade e estabilidade de internet - o download provavelmente vai ser interrompido
-
-<b>Caso não seja a internet</b>, a possível melhor solução para esse problema é aumentar o `sleep_time`  em milissegundos. O que pode ser feito de 2 formas:
-- Na linha 22 do arquivo `main.py` => melhor para testes rápidos
-
-- Na função `arbov_time()` do arquivo `data_handling.py`, onde o `sleep_time` foi definido de acordo com os arbovírus que possuiam o maior número de sequências
-       
-  > <br>**Atenção:**<br><br>
-   Caso você identifique uma melhor lógica para a função de definição desses tempos por vírus, crie uma **PULL REQUEST** para que o merge com a main possa ser feito.
-
-

@@ -31,9 +31,11 @@ def driver_setup(download_directory):
     d.implicitly_wait(5) 
     return d
 
-def arbovirus_search(query, download_directory, sleep_time):
+def arbovirus_search(query, download_directory):
     driver = driver_setup(download_directory)
 
+    if(query == "oropouche+virus"): query = "oropouche virus AND isolate AND segment"
+    print(query)
     search_url = f"https://www.ncbi.nlm.nih.gov/nuccore/?term={query}"
 
     driver.get(search_url) 
@@ -50,9 +52,7 @@ def arbovirus_search(query, download_directory, sleep_time):
     driver.find_element(By.CSS_SELECTOR, "#submenu_File > button:nth-child(3)").click()
 
     while(True):
-        time.sleep(sleep_time)
+        # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
+        time.sleep(3)
         if download_verification():
             return get_num_seq(seq_num)
-        else:
-            #poderia colocar mais um sleep aqui, ver melhor dps
-            return -1

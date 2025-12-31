@@ -1,5 +1,4 @@
 from .files_config import download_verification
-from .data_handling import get_num_seq
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,13 +8,11 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 
-#preparando o driver
 def driver_setup(download_directory):
     options = ChromeOptions()
     #options.add_argument("--headless") 
     #options.add_argument('--disable-popup-blocking') 
 
-    #preferencias para o download 
     preferences = {
         "download.default_directory": f"{download_directory}",
         "download.prompt_for_download": False,
@@ -34,13 +31,11 @@ def driver_setup(download_directory):
 def arbovirus_search(query, download_directory):
     driver = driver_setup(download_directory)
 
-    if(query == "oropouche+virus"): query = "oropouche virus AND isolate AND segment"
-    print(query)
+    query = "oropouche virus AND isolate AND segment" if query == "oropouche+virus" else query
     search_url = f"https://www.ncbi.nlm.nih.gov/nuccore/?term={query}"
 
     driver.get(search_url) 
 
-    #selecionando campos especificos para as sequencias e achando o botao p baixar as seq
     driver.find_element(By.CSS_SELECTOR, "#seqsendto > a:nth-child(1)").click()
     driver.find_element(By.CSS_SELECTOR, "#complete_rec").click()
     driver.find_element(By.CSS_SELECTOR, "#dest_File").click()
@@ -55,4 +50,5 @@ def arbovirus_search(query, download_directory):
         # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
         time.sleep(3)
         if download_verification():
-            return get_num_seq(seq_num)
+            downloaded_sequences = ''.join([c for c in seq_num if c.isdigit()])
+            return downloaded_sequences

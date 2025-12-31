@@ -38,7 +38,8 @@ def arbovirus_search(query, download_directory):
     print(query)
     search_url = f"https://www.ncbi.nlm.nih.gov/nuccore/?term={query}"
 
-    driver.get(search_url) 
+    driver.get(search_url)
+    print(search_url)
 
     #selecionando campos especificos para as sequencias e achando o botao p baixar as seq
     driver.find_element(By.CSS_SELECTOR, "#seqsendto > a:nth-child(1)").click()
@@ -46,13 +47,15 @@ def arbovirus_search(query, download_directory):
     driver.find_element(By.CSS_SELECTOR, "#dest_File").click()
 
     seq_num = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#submenu_File_hint"))).text
-
+    print(seq_num)
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#file_format > option:nth-child(7)"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#file_sort > option:nth-child(2)"))).click()
     driver.find_element(By.CSS_SELECTOR, "#submenu_File > button:nth-child(3)").click()
 
-    while(True):
-        # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
-        time.sleep(3)
-        if download_verification():
-            return get_num_seq(seq_num)
+    return seq_num
+
+    # while(True):
+    #     # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
+    #     time.sleep(3)
+    #     if download_verification():
+    #         return get_num_seq(seq_num)

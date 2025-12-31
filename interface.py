@@ -1,39 +1,15 @@
 import streamlit as st
 import time
 from scripts.setup import arbovirus_search
-from scripts.files_config import prepare_directories, gerar_txt_content, download_verification
+from scripts.files_config import prepare_directories, prepare_files_for_user_download
 
-def prepare_files_for_user_download(virus_name: str, file_type: str, **kwargs):
-    prefix = virus_name.replace(' ', '-')
-    
-    match(file_type.lower()):
-        case "xml":
-            kwargs.clear() # ver como limpar
-
-            with open("output/sequence.gbc.xml", "r") as file:
-                xml_content = file.read()
-                st.download_button(
-                    label="Faça o download da sequência viral XML",
-                    data=xml_content,
-                    file_name=f"{prefix}-sequence.xml",
-                    mime="application/xml",
-                    type="primary",
-                    icon="📥"
-                )
-        case "txt":
-            content = gerar_txt_content(virus_name, kwargs.get("downloaded_sequences"), kwargs.get("downloads_duration"))
-            st.download_button(
-                label="Faça o download de um arquivo txt com as informações gerais sobre sua busca",
-                data=content,
-                file_name=f"{prefix}-seq-download-info.txt",
-                mime="text/plain"
-            )
-        case _:
-            pass
-    
-    
+def set_confirmed():
+    st.session_state.confirmed = True
 
 arbovirus_list = ['dengue virus type 1', 'dengue virus type 2', 'dengue virus type 3', 'dengue virus type 4', 'chikungunya virus', 'zika virus', "oropouche virus"]
+
+if 'confirmed' not in st.session_state:
+    st.session_state.confirmed = False
 
 st.set_page_config(
     page_title="bot download XML",
@@ -42,40 +18,52 @@ st.set_page_config(
 
 st.title("Bot de Downlaod de Sequências Virais XML de Arboviroses")
 
-
 chosen_virus = st.selectbox(
     'Escolha o arbovírus cujas sequencias deseja fazer o download',
     options=arbovirus_list,
     index=None)
 
+
 if chosen_virus:
-    if st.button("Confirmar seleção"):
+    if not st.session_state.confirmed:
+        st.button("Confirmar seleção", on_click=set_confirmed)
+
+    if st.session_state.confirmed:
         st.success(f"iniciando download para o {chosen_virus}")
 
         arbovirus = chosen_virus.replace(' ', '+')
         absolute_path = prepare_directories()
 
         begin_time = time.time()
-        seq_num = arbovirus_search(arbovirus, absolute_path)
-
-        while(True):
-            # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
-            time.sleep(3)
-            if download_verification():
-                st.success("download concluido")
-                #acabou
-                #exibe arquivo para download
-                downloaded_sequences = ''.join([c for c in seq_num if c.isdigit()])
-                break
+        amount = arbovirus_search(arbovirus, absolute_path)
                         
         end_time = time.time()
+        st.success("download concluido")
 
-        prepare_files_for_user_download(chosen_virus, "xml")
+        xml_data = prepare_files_for_user_download(arbovirus_name=chosen_virus, file_type="xml")
+        st.download_button(
+            label=xml_data["label"],
+            data=xml_data["data"],
+            file_name=xml_data["file_name"],
+            mime=xml_data["mime"],
+            icon="📥"
+        )
 
         downloads_duration = end_time - begin_time
 
-        if downloaded_sequences != -1:
-            prepare_files_for_user_download(chosen_virus, "txt", downloaded_sequences, downloads_duration)
+        if amount != -1:
+            txt_data = prepare_files_for_user_download(arbovirus_name=chosen_virus, file_type="txt", amount=amount, downloads_duration=downloads_duration)
+            st.download_button(
+                label=txt_data["label"],
+                data=txt_data["data"],
+                file_name=txt_data["file_name"],
+                mime=txt_data["mime"],
+                icon="📥"
+            )
+
+        #talvez algo pra joogar fora os 2 arquivos baixados do output
+        #fechar
+        #botao de pedir outro dowload = limpa os dados
 
         else: 
             #talvez fazer uma verificação de timeout ou colocar em um try-catch

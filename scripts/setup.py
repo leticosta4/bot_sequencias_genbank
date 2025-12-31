@@ -52,10 +52,9 @@ def arbovirus_search(query, download_directory):
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#file_sort > option:nth-child(2)"))).click()
     driver.find_element(By.CSS_SELECTOR, "#submenu_File > button:nth-child(3)").click()
 
-    return seq_num
-
-    # while(True):
-    #     # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
-    #     time.sleep(3)
-    #     if download_verification():
-    #         return get_num_seq(seq_num)
+    while(True):
+        # a cada 3 segundos vai verificar se o download dos arquivos encerrou ('sequence.gbc.xml' no output)
+        time.sleep(3)
+        if download_verification():
+            downloaded_sequences = ''.join([c for c in seq_num if c.isdigit()])
+            return downloaded_sequences

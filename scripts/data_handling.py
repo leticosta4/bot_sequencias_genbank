@@ -7,7 +7,4 @@ def get_num_seq(string_seq_num):
     print(f"retorno: {numseq}")
     return numseq 
 
-#a antiga função arbov time foi retirada porque não precisava de tempo específico para cada arbovírus
 
-def ver():
-    pass

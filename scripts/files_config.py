@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 from datetime import date, datetime
 
 def download_verification():
@@ -35,3 +34,33 @@ def gerar_txt_content(arbovirus, seq_amount, duration):
     info_summarized = header + day_time + moment + duration_downloads + query + num + source
 
     return info_summarized
+
+
+def prepare_files_for_user_download(arbovirus_name: str, file_type: str, **kwargs):
+    prefix = arbovirus_name.replace(' ', '-')
+    
+    match(file_type.lower()):
+        case "xml":
+            kwargs.clear() # ver como limpar
+
+            with open("output/sequence.gbc.xml", "r") as file:
+                content = file.read()
+
+                return {
+                    "label": "Faça o download da sequência viral XML",
+                    "data": content,
+                    "file_name":f"{prefix}-sequence.xml",
+                    "mime":"application/xml",
+                }
+
+        case "txt":
+            content = gerar_txt_content(arbovirus_name, kwargs.get("amount", 0), kwargs.get("downloads_duration", 0))
+           
+            return {
+                "label": "Faça o download de um arquivo txt com as informações gerais sobre sua busca",
+                "data": content,
+                "file_name":f"{prefix}-seq-info.txt",
+                "mime":"text/plain",
+            }
+        case _:
+            return None

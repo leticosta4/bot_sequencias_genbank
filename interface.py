@@ -1,11 +1,9 @@
 import streamlit as st
 import time
 from scripts.setup import arbovirus_search
-from scripts.files_config import prepare_directories, prepare_files_for_user_download
+from scripts.utils import prepare_directories, prepare_files_for_user_download, clean_temp_output_folder
 import session_state_flags as st_flags
-
-
-arbovirus_list = ['dengue virus type 1', 'dengue virus type 2', 'dengue virus type 3', 'dengue virus type 4', 'chikungunya virus', 'zika virus', "oropouche virus"]
+from constants import arbovirus_list
 
 st_flags.set_init_flags()
 
@@ -23,6 +21,10 @@ chosen_virus = st.selectbox(
 
 
 if chosen_virus:
+    if chosen_virus != st.session_state.last_virus:
+        clean_temp_output_folder()
+        st_flags.reset_flags(new_virus=chosen_virus)
+        
     if not st.session_state.confirmed:
         st.button("Confirmar seleção", on_click=st_flags.set_confirmed)
 
@@ -63,6 +65,7 @@ if chosen_virus:
                     icon="📥"
                 )
 
+            st.badge("vc pode fazer o download de outra sequencia se quiser, basta selecionar o virus desejado !!!")
 
             
 
@@ -72,11 +75,6 @@ if chosen_virus:
 
 
 #carregamento
-#associar opção escolhida para a logica de download
-#coisa de arquivo gerado do xml
-#printar informações 
-
-
 
 #coisa do tempo
 # latest_iteration = st.empty()

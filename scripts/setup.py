@@ -1,4 +1,4 @@
-from .files_config import download_verification
+from .utils import download_verification
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By

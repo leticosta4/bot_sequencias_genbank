@@ -1,5 +1,7 @@
 import os
+import shutil
 from datetime import date, datetime
+from constants import TEMP_OUTPUT_PATH
 
 def download_verification():
     expected_file = "sequence.gbc.xml"
@@ -9,18 +11,25 @@ def download_verification():
 
 
 def prepare_directories():
-    path = 'output/'
-    
     try:
-        os.makedirs(path)
-        print(f"O diretório {path} foi criado com sucesso.")
+        os.makedirs(TEMP_OUTPUT_PATH)
+        print(f"O diretório {TEMP_OUTPUT_PATH} foi criado com sucesso.")
     
     except FileExistsError:
-        print(f"O diretório {path} já existe!")
+        print(f"O diretório {TEMP_OUTPUT_PATH} já existe!")
     except Exception as err:
-        print(f"Erro ao criar o diretório {path}: {err}")
+        print(f"Erro ao criar o diretório {TEMP_OUTPUT_PATH}: {err}")
 
-    return os.path.abspath(path)
+    return os.path.abspath(TEMP_OUTPUT_PATH)
+
+
+def clean_temp_output_folder():
+    if os.path.exists(TEMP_OUTPUT_PATH):
+        shutil.rmtree(TEMP_OUTPUT_PATH)
+        print(f"Pasta '{TEMP_OUTPUT_PATH}' e todo o seu conteúdo deletados.")
+    else:
+        print(f"A pasta '{TEMP_OUTPUT_PATH}' não foi encontrada.")
+
 
 
 def gerar_txt_content(arbovirus, seq_amount, duration):
@@ -66,3 +75,4 @@ def prepare_files_for_user_download(arbovirus_name: str, file_type: str, **kwarg
             }
         case _:
             return None
+            

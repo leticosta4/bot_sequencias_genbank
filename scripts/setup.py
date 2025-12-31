@@ -1,5 +1,4 @@
 from .files_config import download_verification
-from .data_handling import get_num_seq
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By

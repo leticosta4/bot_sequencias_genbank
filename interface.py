@@ -2,7 +2,6 @@ import streamlit as st
 import time
 from scripts.setup import arbovirus_search
 from scripts.files_config import prepare_directories, gerar_txt_content, download_verification
-from scripts.data_handling import get_num_seq
 
 def prepare_files_for_user_download(virus_name: str, file_type: str, **kwargs):
     prefix = virus_name.replace(' ', '-')
@@ -22,7 +21,7 @@ def prepare_files_for_user_download(virus_name: str, file_type: str, **kwargs):
                     icon="📥"
                 )
         case "txt":
-            content = gerar_txt_content(virus_name, kwargs.get("seq_amount"), kwargs.get("downloads_duration"))
+            content = gerar_txt_content(virus_name, kwargs.get("downloaded_sequences"), kwargs.get("downloads_duration"))
             st.download_button(
                 label="Faça o download de um arquivo txt com as informações gerais sobre sua busca",
                 data=content,
@@ -66,17 +65,17 @@ if chosen_virus:
                 st.success("download concluido")
                 #acabou
                 #exibe arquivo para download
-                seq_amount = get_num_seq(seq_num)
+                downloaded_sequences = ''.join([c for c in seq_num if c.isdigit()])
                 break
-        
+                        
         end_time = time.time()
 
         prepare_files_for_user_download(chosen_virus, "xml")
 
         downloads_duration = end_time - begin_time
 
-        if seq_amount != -1:
-            prepare_files_for_user_download(chosen_virus, "txt", seq_amount, downloads_duration)
+        if downloaded_sequences != -1:
+            prepare_files_for_user_download(chosen_virus, "txt", downloaded_sequences, downloads_duration)
 
         else: 
             #talvez fazer uma verificação de timeout ou colocar em um try-catch

@@ -7,6 +7,7 @@ def download_verification():
         print(f"Arquivo '{expected_file}' baixado com sucesso!")
         return True
 
+
 def prepare_directories():
     path = 'output/'
     
@@ -20,6 +21,7 @@ def prepare_directories():
         print(f"Erro ao criar o diretório {path}: {err}")
 
     return os.path.abspath(path)
+
 
 def gerar_txt_content(arbovirus, seq_amount, duration):
     header = "Informações gerais do download\n"
@@ -54,7 +56,7 @@ def prepare_files_for_user_download(arbovirus_name: str, file_type: str, **kwarg
                 }
 
         case "txt":
-            content = gerar_txt_content(arbovirus_name, kwargs.get("amount", 0), kwargs.get("downloads_duration", 0))
+            content = gerar_txt_content(arbovirus_name, kwargs.get("amount", 0), kwargs.get("download_duration", 0.0))
            
             return {
                 "label": "Faça o download de um arquivo txt com as informações gerais sobre sua busca",

@@ -1,6 +1,7 @@
 import time
+
+from scripts.files_config import gerar_txt, prepare_directories
 from scripts.setup import arbovirus_search
-from scripts.files_config import prepare_directories, gerar_txt
 
 seq_amount = 0
 lista_arbovirus = [

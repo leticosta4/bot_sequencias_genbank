@@ -33,6 +33,17 @@ Dentro da pasta do projeto, rodar no terminal:
 
      pip install -r requirements.txt
 
+## Formatando o código
+Usei algumas bibliotecas para melhorar a formatação, organização e leitura do código:
+- [black](https://pypi.org/project/black/): formata o código python de acordo com [PEP 8](https://peps.python.org/pep-0008/)
+- [isort](https://pypi.org/project/isort/):  formata automaticamente as importações de acordo com a PEP 8: em ordem alfabética e organizada por seções e tipos.
+
+Então, rode os comandos abaixo:
+
+       black <caminho/do/arquivo-modificado.py>
+       isort <caminho/do/arquivo-modificado.py>
+
+
 ## Problemas com o chromedriver
 No caso de problemas com o diretório de destino do arquivo com as sequências virais baixadas, ou com erro do driver do tipo: 
 

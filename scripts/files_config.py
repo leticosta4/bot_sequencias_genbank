@@ -1,5 +1,5 @@
 import os
-from datetime import date, datetime
+from datetime import datetime
 
 
 def download_verification():
@@ -27,8 +27,7 @@ def prepare_directories():
 def gerar_txt(arbovirus, seq_amount, duration):
     with open("output/output_info.txt", "w") as file_to_download:
         header = "Informações gerais do download\n"
-        today = date.today().strftime("%d/%m/%Y")
-        day_time = f"Dia de download das sequências: {today}\n"
+        day_time = f"Dia de download das sequências: {datetime.today().strftime('%d/%m/%Y')}\n"
         moment = f"Horário: {datetime.now().strftime('%H:%M:%S')}\n"
         duration_downloads = f"Duração dos downloads: {duration:.0f} segundos\n"
         query = f"Arbovírus selecionado pelo usuário para download das sequências: {arbovirus}\n"

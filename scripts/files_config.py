@@ -1,19 +1,21 @@
 import os
 from datetime import datetime
 
+
 def download_verification():
     expected_file = "sequence.gbc.xml"
     if os.path.exists(os.path.join("output/", expected_file)):
         print(f"Arquivo '{expected_file}' baixado com sucesso!")
         return True
 
+
 def prepare_directories():
-    path = 'output/'
-    
+    path = "output/"
+
     try:
         os.makedirs(path)
         print(f"O diretório {path} foi criado com sucesso.")
-    
+
     except FileExistsError:
         print(f"O diretório {path} já existe!")
     except Exception as err:
@@ -21,8 +23,9 @@ def prepare_directories():
 
     return os.path.abspath(path)
 
+
 def gerar_txt(arbovirus, seq_amount, duration):
-    with open("output/output_info.txt", "w") as file_to_download: 
+    with open("output/output_info.txt", "w") as file_to_download:
         header = "Informações gerais do download\n"
         day_time = f"Dia de download das sequências: {datetime.today().strftime('%d/%m/%Y')}\n"
         moment = f"Horário: {datetime.now().strftime('%H:%M:%S')}\n"
@@ -30,5 +33,7 @@ def gerar_txt(arbovirus, seq_amount, duration):
         query = f"Arbovírus selecionado pelo usuário para download das sequências: {arbovirus}\n"
         num = f"Número de sequências encontradas para {arbovirus}: {seq_amount}\n"
         source = f"Fonte: Genbank, Nucleotide database"
-        file_to_download.write(header + day_time + moment + duration_downloads + query + num + source)
+        file_to_download.write(
+            header + day_time + moment + duration_downloads + query + num + source
+        )
         file_to_download.close()
